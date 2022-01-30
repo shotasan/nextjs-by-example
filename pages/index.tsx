@@ -4,18 +4,32 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import NavBar from '../components/NavBar';
+import { getSlug, getPosts } from '../lib/posts';
 
-const Home: NextPage = () => {
+export const getStaticProps = async () => {
+  const posts = await getPosts();
+  return {
+    props: { posts },
+  };
+};
+
+const Home = ({ posts }: { posts: any[] }) => {
+  console.log('[HomePage] render:', posts);
+
   return (
     <>
       <main>
         <h1>Home</h1>
         <ul>
-          <li>
-            <Link href="/posts/first-post">
-              <a>First Post</a>
-            </Link>
-          </li>
+          {posts.map((post) => {
+            return (
+              <li key={post.slug}>
+                <Link href={`/posts/${post.slug}`}>
+                  <a>{post.title}</a>
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </main>
     </>
