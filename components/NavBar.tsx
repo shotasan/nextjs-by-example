@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import Link from 'next/link';
+import ThemeSwitch from './ThemeSwith';
 
 const NavBar: NextPage = () => {
   return (
@@ -16,8 +17,13 @@ const NavBar: NextPage = () => {
           </Link>
         </li>
       </ul>
+      <ThemeSwitch />
       <style jsx>
         {`
+          nav {
+            display: flex;
+            justify-content: space-between;
+          }
           ul {
             list-style-type: none;
             padding: 0;
